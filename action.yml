@@ -7,15 +7,15 @@ inputs:
   owner:
     description:
       'The owner of the repo. Assign from github.repository_owner. Example, "dotnet".'
-    required: true
+    required: false
   name:
     description:
       'The repository name. Example, "samples".'
-    required: true
+    required: false
   branch:
     description:
       'The branch name. Assign from github.ref. Example, "refs/heads/main".'
-    required: true
+    required: false
   dir:
     description:
       'The root directory to work from. Examples, "path/to/code".'
@@ -69,7 +69,7 @@ runs:
       path: ${{ inputs.pathBase }} 
       
   - name: Run code analysis last commit
-    id: this-app
+    id: this-app1
     uses: rijadge/NDiff-testing@release1.10
     env:
       GREETINGS: 'Hello, .NET developers!' 
@@ -77,12 +77,12 @@ runs:
       owner: ${{ inputs.owner }}
       name: ${{ inputs.repository }}
       branch: ${{ inputs.branch }}
-      dir: ${{ "./" + inputs.pathHead }}
+      dir: "./" + ${{ inputs.pathHead }}
       repository: ${{ inputs.repository}}
       token: ${{ inputs.token }}
       
   - name: Run code analysis prev commit
-    id: this-app
+    id: this-app2
     uses: rijadge/NDiff-testing@release1.10
     env:
       GREETINGS: 'Hello, .NET developers!' 
@@ -90,7 +90,7 @@ runs:
       owner: ${{ inputs.owner }}
       name: ${{ inputs.repository }}
       branch: ${{ inputs.branch }}
-      dir: ${{ "./" + inputs.pathBase }}
+      dir: "./" + ${{  inputs.pathBase }}
       repository: ${{ inputs.repository}}
       token: ${{ inputs.token }}
   - run: |
