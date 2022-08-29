@@ -93,7 +93,8 @@ runs:
       dir: "./base" # + ${{  inputs.pathBase }}
       repository: ${{ inputs.repository}}
       token: ${{ inputs.token }}
-  - run: |
+  - name: running shell script
+    run: |
      ls
      echo =============================
      cd head
@@ -102,3 +103,4 @@ runs:
      cd ..
      cd base
      ls
+   shell: bash
