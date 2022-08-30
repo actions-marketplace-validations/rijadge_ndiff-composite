@@ -70,7 +70,7 @@ runs:
       
   - name: Run code analysis last commit
     id: this-app1
-    uses: rijadge/NDiff-testing@release1.10
+    uses: rijadge/NDiff-testing@release1.11
     env:
       GREETINGS: 'Hello, .NET developers!' 
     with:
@@ -83,7 +83,7 @@ runs:
       
   - name: Run code analysis prev commit
     id: this-app2
-    uses: rijadge/NDiff-testing@release1.10
+    uses: rijadge/NDiff-testing@release1.11
     env:
       GREETINGS: 'Hello, .NET developers!' 
     with:
@@ -93,6 +93,17 @@ runs:
       dir: "./base" # + ${{  inputs.pathBase }}
       repository: ${{ inputs.repository}}
       token: ${{ inputs.token }}
+  - name: "Find difference between OpenAPI specifications"
+    id: diff_state
+    uses: swimmwatch/openapi-diff-action@v1.0.1
+    with:
+      old-spec: "./base/test.json"
+      new-spec: "./head/test.json"
+      json: "out.json"
+      markdown: "out.md"
+  - name: "Print difference state"
+    run: echo "Current state: ${{steps.diff_state.outputs.state}}."
+    shell: bash
   - name: running shell script
     run: |
      ls
