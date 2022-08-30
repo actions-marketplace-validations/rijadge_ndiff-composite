@@ -93,6 +93,14 @@ runs:
       dir: "./base" # + ${{  inputs.pathBase }}
       repository: ${{ inputs.repository}}
       token: ${{ inputs.token }}
+  - name: "Find difference between OpenAPI specifications"
+    id: diff_state
+    uses: swimmwatch/openapi-diff-action@v1.0.1
+    with:
+      old-spec: "./base/test.json"
+      new-spec: "./head/test.json"
+      json: "out.json"
+      markdown: "out.md"
 
   - name: running shell script
     run: |
