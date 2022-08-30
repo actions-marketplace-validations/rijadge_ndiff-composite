@@ -102,6 +102,7 @@ runs:
       json: "out.json"
       markdown: "out.md"
   - name: "Print difference state"
+    if: ${{ steps.diff_state.outputs.state != 'no_changes' }}
     shell: bash
     run: echo ${{ steps.diff_state.outputs.state }}
   - name: running shell script
